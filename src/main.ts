@@ -3,7 +3,6 @@ import { AppModule } from './app';
 import { appConfig } from '@config';
 import { ValidationPipe } from '@nestjs/common';
 import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger';
-import { RcpExceptionFilter } from 'filter';
 
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
@@ -12,10 +11,9 @@ async function bootstrap() {
     origin: '*',
     methods: ['GET', 'POST', 'PATCH', 'DELETE'],
     optionsSuccessStatus: 200,
-    allowedHeaders: ['language', 'authorization'],
+    allowedHeaders: ['language', 'authorization', 'content-type'],
   });
 
-  app.useGlobalFilters(new RcpExceptionFilter());
 
   app.useGlobalPipes(
     new ValidationPipe({
